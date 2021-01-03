@@ -2,7 +2,7 @@
   CAO-ShopAddItem.js - v1.0.0
  -----------------------------------------------------------------------------
   Copyright (c) 2021 CACAO
-  Released under the CACAO's license.
+  Released under the CACAO's license - 1.0
   https://cacao-soft.github.io/Licenses/CAO-LICENSE.txt
  -----------------------------------------------------------------------------
   [Twitter] https://twitter.com/cacao_soft/
