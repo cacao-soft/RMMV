@@ -1,5 +1,5 @@
 /*=============================================================================
-  CAO-TimeLimitedChoice.js - v1.0.0
+  CAO-TimeLimitedChoice.js - v1.0.1
  -----------------------------------------------------------------------------
   Copyright (c) 2022 CACAO
   Released under the MIT License.
@@ -13,7 +13,7 @@
  * @target MV
  * @author CACAO
  * @url https://raw.githubusercontent.com/cacao-soft/RMMV/main/CAO-TimeLimitedChoice.js
- * @plugindesc v1.0.0 時間制限のある選択肢を作れるようにします。
+ * @plugindesc v1.0.1 時間制限のある選択肢を作れるようにします。
  *
  * @help
  * == 使用方法 ==
@@ -135,14 +135,19 @@
         this.checkTimeout()
     }
 
+    Window_ChoiceList.prototype.isEnabledTimeout = function() {
+      return $gameMessage.choiceTimeoutType() != 0
+    }
+
     Window_ChoiceList.prototype.checkTimeout = function() {
-        if ($gameTimer._frames === 0) {
+        if (this.isEnabledTimeout() && $gameTimer._frames === 0) {
             this.callTimeoutHandler()
             setTimeoutSwitch(true)
         }
     }
 
     Window_ChoiceList.prototype.callTimeoutHandler = function() {
+        if (!this.isEnabledTimeout()) return
         if ($gameMessage.choiceTimeoutType() < 0) {
             if ($gameMessage.choiceTimeoutType() === -2) {
                 this.callCancelHandler()
