@@ -1,5 +1,5 @@
 /*=============================================================================
-  CAO-TimeLimitedChoice.js - v1.0.1
+  CAO-TimeLimitedChoice.js - v1.0.2
  -----------------------------------------------------------------------------
   Copyright (c) 2022 CACAO
   Released under the MIT License.
@@ -13,7 +13,7 @@
  * @target MV
  * @author CACAO
  * @url https://raw.githubusercontent.com/cacao-soft/RMMV/main/CAO-TimeLimitedChoice.js
- * @plugindesc v1.0.1 時間制限のある選択肢を作れるようにします。
+ * @plugindesc v1.0.2 時間制限のある選択肢を作れるようにします。
  *
  * @help
  * == 使用方法 ==
@@ -72,7 +72,7 @@
         skip: function(args) { $gameMessage.setChoiceTimeoutType(99) },
         select: function(args) { $gameMessage.setChoiceTimeoutType(-1) },
         cancel: function(args) { $gameMessage.setChoiceTimeoutType(-2) },
-        index: function(args) { $gameMessage.setChoiceTimeoutType(args.index - 1) }
+        index: function(args) { $gameMessage.setChoiceTimeoutType(args.index) }
     }
 
     const _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand
@@ -136,7 +136,7 @@
     }
 
     Window_ChoiceList.prototype.isEnabledTimeout = function() {
-      return $gameMessage.choiceTimeoutType() != 0
+      return $gameMessage.choiceTimeoutType() !== 0
     }
 
     Window_ChoiceList.prototype.checkTimeout = function() {
@@ -158,7 +158,7 @@
                 this.callOkHandler()
             }
         } else if ($gameMessage.choiceTimeoutType() > 0) {
-            $gameMessage.onChoice($gameMessage.choiceTimeoutType())
+            $gameMessage.onChoice($gameMessage.choiceTimeoutType() - 1)
             this._messageWindow.terminateMessage()
             this.close()
         }
